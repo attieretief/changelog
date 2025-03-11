@@ -1,8 +1,5 @@
 FROM python:3.9-slim
 
-# Set the working directory
-WORKDIR /usr/src/app
-
 # Copy the requirements file
 COPY requirements.txt ./
 
@@ -13,4 +10,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 
 # Set the entry point for the action
-ENTRYPOINT ["python", "/src/main.py"]
+ENTRYPOINT ["python", "./src/main.py"]
