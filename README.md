@@ -57,6 +57,12 @@ jobs:
           owner: ${{ github.repository_owner }}
           repository: ${{ github.repository }}
           pull_request_number: ${{ github.event.pull_request.number }}
+      - name: Commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'pdf from gh issue'
+          # Optional. Local and remote branch name where commit is going to be pushed
+          branch: docs
 ```
 
 ## License
