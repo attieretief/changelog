@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY src/ ./src/
 
 # Set the entry point for the action
-ENTRYPOINT ["python", "./src/main.py"]
+ENTRYPOINT ["python", "/src/main.py"]
