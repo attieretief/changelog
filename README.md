@@ -1,39 +1,33 @@
 # Changelog Updater Action
 
-This GitHub Action updates the changelog based on merged pull requests and referenced issues. It automates the process of keeping your changelog up to date, ensuring that your project documentation reflects the latest changes.
+This GitHub Action generates or updates a changelog markdown file based on merged pull requests and referenced issues. It automates the process of keeping your changelog up to date, ensuring that your project documentation reflects the latest changes.
 
 ## Table of Contents
 
 - [Changelog Updater Action](#changelog-updater-action)
   - [Table of Contents](#table-of-contents)
   - [Usage](#usage)
-  - [Inputs](#inputs)
-  - [Example](#example)
+    - [Job](#job)
+    - [Inputs](#inputs)
+    - [Example](#example)
   - [License](#license)
 
 ## Usage
 
-To use this action in your GitHub workflow, include the following in your workflow YAML file:
+### Job
 
-```yaml
-uses: your-username/changelog-updater@v1
-with:
-  github_token: ${{ secrets.GITHUB_TOKEN }}
-  changelog_file: CHANGELOG.md
-  pull_request_body: ${{ github.event.pr.body }}
-  build_number: ${{ env.build_number }}
-  merged_at: ${{ github.event.pr.merged_at }}
-```
+uses: attieretief/changelog-updater@v1
 
-## Inputs
+### Inputs
 
 - `github_token`: **Required**. A GitHub token for authentication. This token is used to access the GitHub API and fetch merged pull requests and issues.
 - `changelog_file`: **Optional**. The path to the changelog file. Defaults to `CHANGELOG.md`.
-- `pull_request_body`: **Required**. The body of the pull request that triggered the action. Used to extract issue references from.
-- `build_number`: **Required**. The build number to create the changelog entry for.
-- `merged_at`; **Required**. The date for the changelog entry.
+- `front_matter`: **Optional**. Front matter to include in the changelog. Defaults to `---\n---\n\n`.
+- `owner`: **Required**. Repository owner. Defaults to `${{ github.repository_owner }}`.
+- `repository`: **Required**. Repository name. Defaults to `${{ github.repository }}`.
+- `pull_request_number`: **Optional**. Pull request number. If one is provided, the changelog will be updated with just the information from this pull request. If not, the changelog will be regenerated.
 
-## Example
+### Example
 
 Here is an example of how to configure the action in your workflow:
 
@@ -53,13 +47,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Update Changelog
-        uses: attieretief/changelog-updater@v1
+        uses: attieretief/changelog@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           changelog_file: CHANGELOG.md
-          pull_request_body: ${{ github.event.pr.body }}
-          build_number: ${{ env.build_number }}
-          merged_at: ${{ github.event.pr.merged_at }}
+          front_matter: |
+            ---
+            ---
+          owner: ${{ github.repository_owner }}
+          repository: ${{ github.repository }}
+          pull_request_number: ${{ github.event.pull_request.number }}
 ```
 
 ## License
