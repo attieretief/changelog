@@ -1,0 +1,7 @@
+.env
+.venv
+test.rest
+__pycache__
+*.pyc
+*.pyo
+*.pyd

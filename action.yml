@@ -1,0 +1,31 @@
+name: 'Changelog Generator'
+description: 'A GitHub Action that generates a changelog based on merged pull requests and referenced issues.'
+inputs:
+  github_token:
+    description: 'GitHub token for authentication'
+    required: true
+  changelog_file:
+    description: 'Path to the changelog file'
+    required: false
+    default: 'CHANGELOG.md'
+  front_matter:
+    description: 'Front matter to include in the changelog'
+    required: false
+    default: '---\n---\n\n'
+  owner:
+    description: 'Repository owner'
+    required: true
+    default: ${{ github.repository_owner }}
+  repository:
+    description: 'Repository name'
+    required: true
+    default: ${{ github.repository }}
+  pull_request_number:
+    description: 'Pull request number'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'book'
+  color: 'blue'
