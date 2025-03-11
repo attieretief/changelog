@@ -1,5 +1,7 @@
 import re
 
+DBL_NEWLINE = "\n\n"
+
 
 class ChangelogUpdater:
     def __init__(
@@ -58,9 +60,9 @@ class ChangelogUpdater:
         # Write new entries at the top followed by existing content
         with open(self.changelog_file, "w") as file:
             if self.front_matter:
-                file.write(f"{self.front_matter}\n\n")
-            file.write("# Changelog\n\n")
-            file.write("\n\n".join(entries))
+                file.write(f"{self.front_matter}{DBL_NEWLINE}")
+            file.write(f"# Changelog{DBL_NEWLINE}")
+            file.write(f"{DBL_NEWLINE}".join(entries))
 
     def update_changelog(self, entries):
         with open(self.changelog_file, "r") as file:
@@ -70,10 +72,12 @@ class ChangelogUpdater:
                 if re.search(r"---(.|\n)*---", content):
                     content = re.sub(r"---(.|\n)*---", self.front_matter, content)
                 else:
-                    content = f"{self.front_matter}\n\n{content}"
+                    content = f"{self.front_matter}{DBL_NEWLINE}{content}"
             # insert new entries at the top after existing Changelog title
             content = re.sub(
-                r"# Changelog", f"# Changelog\n\n{'\n\n'.join(entries)}", content
+                r"# Changelog",
+                f"# Changelog{DBL_NEWLINE}{'{DBL_NEWLINE}'.join(entries)}",
+                content,
             )
         with open(self.changelog_file, "w") as file:
             file.write(content)
