@@ -38,7 +38,7 @@ class ChangelogUpdater:
         issue_list = []
 
         for issue in issues:
-            entry = f"- {issue['title']} ([#{issue['number']}]({issue["html_url"]}))"
+            entry = f"- {issue['title']} ([#{issue['number']}]({issue['html_url']}))"
             issue_list.append(entry)
 
         for message in messages:
@@ -128,7 +128,7 @@ class ChangelogUpdater:
                         version_string = f"Builds: {', '.join(builds)}"
                     else:
                         version_string = ""
-                    changelog_entry = f"### [PR#{pr["number"]}]({pr["html_url"]}) ({pr["merged_at"].replace("T"," ").replace("Z","")} - [{pr["merge_commit_sha"][:7]}](https://github.com/{self.owner}/{self.repo}/commit/{pr["merge_commit_sha"][:7]}) - {version_string})\n{changelog_issues}"
+                    changelog_entry = f"### [PR#{pr['number']}]({pr['html_url']}) ({pr['merged_at'].replace('T',' ').replace('Z','')} - [{pr['merge_commit_sha'][:7]}](https://github.com/{self.owner}/{self.repo}/commit/{pr['merge_commit_sha'][:7]}) - {version_string})\n{changelog_issues}"
                     changelog_entries.append(changelog_entry)
         if self.pull_request_number:
             self.update_changelog(changelog_entries)
