@@ -58,7 +58,7 @@ class ChangelogUpdater:
 
     def write_changelog(self, entries):
         # Write new entries at the top followed by existing content
-        with open(self.changelog_file, "x") as file:
+        with open(self.changelog_file, "w") as file:
             if self.front_matter:
                 file.write(f"{self.front_matter}{DBL_NEWLINE}")
             file.write(f"# Changelog{DBL_NEWLINE}")
